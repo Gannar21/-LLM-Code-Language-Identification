@@ -1,13 +1,4 @@
-venv/
-.venv/
 __pycache__/
-*.py[cod]
-*.pyo
+*.pyc
 .env
-*.egg-info/
-dist/
-build/
-.mypy_cache/
-.pytest_cache/
 .ipynb_checkpoints/
-*.ipynb_checkpoints
