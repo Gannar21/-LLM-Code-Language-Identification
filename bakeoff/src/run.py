@@ -2,11 +2,12 @@
 Runs the frozen prompt against all three models, in the same item order, and
 logs one row per (model, item) to results/per_item.csv.
 
-Both Groq and vLLM expose an OpenAI-compatible /chat/completions endpoint, so
-we use the `openai` client for both — just pointed at different base_urls.
+OpenAI (top/cheap) and vLLM (local) both expose an OpenAI-compatible
+/chat/completions endpoint, so we use the `openai` client for both — just
+pointed at different base_urls.
 
 Requires:
-  - GROQ_API_KEY in .env (for "top" and "cheap")
+  - OPENAI_API_KEY in .env (for "top" and "cheap")
   - a running vLLM server at config.MODELS["local"]["base_url"] (for "local")
 
 Run with: python run.py [model_key ...]
@@ -20,7 +21,7 @@ from pathlib import Path
 
 from openai import APIError, APITimeoutError, OpenAI
 
-from config import DATA_PATH, MAX_TOKENS, MODELS, RESULTS_DIR, RUN_DATE, TEMPERATURE, require_groq_key
+from config import DATA_PATH, MAX_TOKENS, MODELS, RESULTS_DIR, RUN_DATE, TEMPERATURE, require_openai_key
 from prompt import build_prompt
 from score import score_item
 
@@ -58,8 +59,8 @@ def load_items(path: Path = DATA_PATH) -> list[dict]:
 
 def make_client(model_key: str) -> OpenAI:
     cfg = MODELS[model_key]
-    if cfg["provider"] == "groq":
-        return OpenAI(api_key=require_groq_key(), base_url="https://api.groq.com/openai/v1")
+    if cfg["provider"] == "openai":
+        return OpenAI(api_key=require_openai_key(), base_url=cfg["base_url"])
     elif cfg["provider"] == "vllm":
         return OpenAI(api_key="not-needed", base_url=cfg["base_url"])
     else:
