@@ -1,0 +1,5 @@
+jupyter
+python-dotenv>=1.0,<2
+requests>=2.28,<3
+pandas>=2.0,<3
+openai>=1.0,<2
