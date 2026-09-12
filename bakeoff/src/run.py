@@ -59,12 +59,23 @@ def load_items(path: Path = DATA_PATH) -> list[dict]:
 
 def make_client(model_key: str) -> OpenAI:
     cfg = MODELS[model_key]
+
     if cfg["provider"] == "openai":
-        return OpenAI(api_key=require_openai_key(), base_url=cfg["base_url"])
-    elif cfg["provider"] == "vllm":
-        return OpenAI(api_key="not-needed", base_url=cfg["base_url"])
+        return OpenAI(
+            api_key=require_openai_key(),
+            base_url=cfg["base_url"],
+        )
+
+    elif cfg["provider"] in {"vllm", "ollama"}:
+        return OpenAI(
+            api_key="not-needed",
+            base_url=cfg["base_url"],
+        )
+
     else:
-        raise ValueError(f"Unknown provider for {model_key!r}: {cfg['provider']}")
+        raise ValueError(
+            f"Unknown provider for {model_key!r}: {cfg['provider']}"
+        )
 
 
 def call_model(client: OpenAI, model_name: str, prompt_text: str) -> dict:

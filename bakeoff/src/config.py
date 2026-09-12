@@ -40,11 +40,11 @@ MODELS = {
         "model": "gpt-5.6-luna",
         "base_url": "https://api.openai.com/v1",
     },
-    "local": {
-        "provider": "vllm",
-        "model": "<placeholder — teammate fills this in>",
-        "base_url": "http://localhost:8000/v1",  # vLLM's OpenAI-compatible endpoint
-    },
+"local": {
+    "provider": "ollama",
+    "model": "qwen3:4b-instruct-2507-q4_K_M",
+    "base_url": "http://localhost:11434/v1",
+},
 }
 
 # OpenAI list price, USD per 1M tokens — CHECK against

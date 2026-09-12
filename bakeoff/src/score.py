@@ -15,7 +15,6 @@ def parse_output(raw_output):
         return None
 
     cleaned = raw_output.strip()
-    cleaned = cleaned.strip(" \t\n\r.\"'`")
 
     if "\n" in cleaned or len(cleaned) == 0:
         return None
