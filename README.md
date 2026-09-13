@@ -1,8 +1,8 @@
-# bakeoff
+# Bakeoff
 
-Same 50 code snippets, same frozen prompt, three models: one top-tier API model, one cheap API model, and one open-weights model we run ourselves.
+Same 50 code snippets, same frozen prompt, three models: one top tier API model, one cheap API model, and one open weights model we run ourselves.
 
-The task is simple — guess the programming language from a short code snippet — and we score it using exact string match, with no human or LLM judging.
+The task is simple guess the programming language from a short code snippet and we score it using exact string match, with no human or LLM judging.
 
 ## Setup
 
@@ -37,7 +37,7 @@ If a model is run again, remove its previous rows from `results/per_item.csv` fi
 
 ## Results
 
-Only `local` has been run so far. `top` and `cheap` are waiting on a real API key and model-ID check.
+Only `local` has been run so far. `top` and `cheap` are waiting on a real API key and model ID check.
 
 | model | accuracy | p50 latency | p95 latency | avg tokens in/out |
 |---|---|---|---|---|
@@ -47,18 +47,18 @@ Only `local` has been run so far. `top` and `cheap` are waiting on a real API ke
 
 Full results are available in `results/summary.csv`.
 
-Per-item results are available in `results/per_item.csv`.
+Per item results are available in `results/per_item.csv`.
 
-The two local-model errors (items 15 and 25) have the same issue: the "C" snippet is also valid C++, so nothing in the code rules C++ out.
+The two local model errors (items 15 and 25) have the same issue: the "C" snippet is also valid C++, so nothing in the code rules C++ out.
 
 More details are available in `data/labeling_note.md` and `postmortem.md`.
 
 ## Contributions
 
-- **Eya Bedoui** — Built the 50-item dataset (`data/items.jsonl`), wrote the prompt template (`src/prompt.py`), and ran the local-model benchmark using Ollama.
+- **Eya Bedoui** — Built the 50 item dataset (`data/items.jsonl`), wrote the prompt template (`src/prompt.py`), and ran the local-model benchmark using Ollama.
 
 - **Asma Ganner** — Set up the repository structure, wrote `src/config.py` for model settings and label loading, and wrote `src/score.py` for exact-match scoring.
 
-- **Asma Aouiti** — Built the analysis notebook (`notebook/bakeoff.ipynb`), wrote `src/cost.py` for cost and break-even calculations, and wrote `src/summarize.py` for the results table.
+- **Asma Aouiti** — Built the analysis notebook (`notebook/bakeoff.ipynb`), wrote `src/cost.py` for cost and break even calculations, and wrote `src/summarize.py` for the results table.
 
 - **Nouha Aouiti** — Wrote the documentation, including `README.md`, `postmortem.md`, `results/hardware_note.md`, and the report.
